@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.WristCommandUp;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.WristJoint;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,7 +23,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
+  private final WristJoint wristJoint = new WristJoint();
+  private WristCommandUp wristCommand;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driver1 =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -31,6 +33,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    wristCommand = new WristCommandUp(wristJoint);
   }
 
   /**
@@ -51,7 +54,7 @@ public class RobotContainer {
     // cancelling on release.
     driver1.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   
-    driver1.a().whileTrue(WristJoint.WristCommand);
+    // driver1.a().whileTrue(wristCommand);
   
   }
 

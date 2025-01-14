@@ -1,25 +1,31 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+// import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class WristJoint extends SubsystemBase {
-    public static final Command WristCommand = null;
-    private TalonSRX spin = new TalonSRX(Constants.Joint.spin);
+    // private TalonSRX spin = new TalonSRX(Constants.Joint.spin);
+    private final SparkMax motor;
+    private final SparkMaxConfig config;
 
-public WristJoint(){
-    spin.setNeutralMode(NeutralMode.Brake);
-}
+    public WristJoint() {
+        // spin.setNeutralMode(NeutralMode.Brake);
+        // this.m_sparkMotor = new CANSparkMax(0, MotorType.kBrushless);
+        motor = new SparkMax(12, MotorType.kBrushless);
+        config = new SparkMaxConfig();
+        motor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
-public void spinUp(double multiplier){
-    spin.set(TalonSRXControlMode.PercentOutput, (0.8)*(multiplier));
+    }
 
-
-}
+    public void spinUp(double multiplier) {
+        // spin.set(TalonSRXControlMode.PercentOutput, (0.8)*(multiplier));
+        motor.set(multiplier);
+    }
 
 }
